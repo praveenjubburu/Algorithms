@@ -1,0 +1,25 @@
+void merge_sort(int l,int m,int r,vector<int>&a){
+	int buff[r-l+1];
+	int i=l,j=m+1,t=0;
+	while(i<=m&&j<=r){
+		if(a[i]<a[j]){
+			buff[t++]=a[i++];
+		}else{
+			buff[t++]=a[j++];
+		}
+	}
+	while(j<=r)buff[t++]=a[j++];
+	while(i<=m)buff[t++]=a[i++];
+	for(int k=0;k<r-l+1;k++){
+		a[l+k]=buff[k];
+	}
+}
+void merge(int l,int r,vector<int>&a){
+	if(l<r){
+		cout<<l<<" "<<r<<endl;
+		int m=(l+r)/2;
+		merge(l,m,a);
+		merge(m+1,r,a);
+		merge_sort(l,m,r,a);
+	}
+}
