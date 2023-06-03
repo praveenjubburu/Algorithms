@@ -1,0 +1,77 @@
+problem Statement:  
+
+A company has n employees with a unique ID for each employee from 0 to n - 1. The head of the company is the one with headID.
+
+Each employee has one direct manager given in the manager array where manager[i] is the direct manager of the i-th employee, manager[headID] = -1. Also, it is guaranteed that the subordination relationships have a tree structure.
+
+The head of the company wants to inform all the company employees of an urgent piece of news. He will inform his direct subordinates, and they will inform their subordinates, and so on until all employees know about the urgent news.
+
+The i-th employee needs informTime[i] minutes to inform all of his direct subordinates (i.e., After informTime[i] minutes, all his direct subordinates can start spreading the news).
+
+Return the number of minutes needed to inform all the employees about the urgent news.
+
+
+Test Case:
+
+Input: n = 1, headID = 0, manager = [-1], informTime = [0]
+Output: 0
+Explanation: The head of the company is the only employee in the company
+
+Test Case2:
+
+Input: n = 6, headID = 2, manager = [2,2,-1,2,2,2], informTime = [0,0,1,0,0,0]
+Output: 1
+Explanation: The head of the company with id = 2 is the direct manager of all the employees in the company and needs 1 minute to inform them all.
+The tree structure of the employees in the company is shown.
+
+
+Solution:
+
+
+The main part of solving the problem is to understand the question properly once you understand it well then start the code otherwise just think until you get an idea. Here the main part is that the distance between the head and the subordinate who is far from the head. we need to find the distance between them. The idea is to do the breadth-first-search from the head until all leaves and find the max distance.
+
+
+Breadth-First-search:
+
+Breadth-first search (BFS) is an algorithm for searching a tree data structure for a node that satisfies a given property. It starts at the tree root and explores all nodes at the present depth prior to moving on to the nodes at the next depth level. Extra memory, usually a queue, is needed to keep track of the child nodes that were encountered but not yet explored.
+
+
+Solution :
+
+c++ Code:
+
+const int mxn=1e5+1;
+class Solution {
+public:
+    int numOfMinutes(int n, int headID, vector<int>& a, vector<int>& t) {
+
+        vector<int>adj[mxn];                 //adj list to store the connection between the nodes
+        memset(adj,0,sizeof adj);   
+        for(int i=0;i<n;i++){
+            if(i==headID)continue;
+            adj[a[i]].push_back(i);         //makin connection to the a[i] and i 
+            
+        }
+        queue<int>q;                       //queue to store the dfs nodes
+        int d[mxn];
+        memset(d,0,sizeof d);
+        d[headID]=t[headID];
+        q.push(headID);                 //starting from the head
+        
+        while(q.size()){
+            int x=q.front();              //visit nodes in level order so that we can maintain the shortest path from the head
+            q.pop();
+            for(int i:adj[x]){
+                d[i]=d[x]+t[i];
+                q.push(i);
+            }
+        }
+        int ans=0;
+        
+        for(int i=0;i<n;i++){
+            cout<<d[i]<<endl;
+            ans=max(ans,d[i]);         //iterating all the sub-ordinates and finding the max distance
+        }
+        return ans;
+    }
+};
