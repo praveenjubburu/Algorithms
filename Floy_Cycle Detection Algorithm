@@ -1,0 +1,75 @@
+
+The name itself the Floy Cycle Detection Algorithm is used to find the cycle in the linked list
+
+
+For Calclualating the cycle we need pointers which is moves the x speed and 2x speed let's assume the slower one is the tortoise and the faster one is the rabbit so we move the pointers by the speeds. So if the rabbit reaches the end we can say there is no cycle in the linked list but if there is a cycle we are not sure when at some time the tortoise will catch the rabbit so if that happens we can say that there is a cycle in will be formed so
+
+                          
+                       
+see this picture:- https://www.google.com/imgres?imgurl=https%3A%2F%2Fi.stack.imgur.com%2FTQoyH.png&tbnid=FaHtGxZH2nk1hM&vet=12ahUKEwidgJHnx-D-AhVsjtgFHTicCugQMygCegUIARCyAQ..i&imgrefurl=https%3A%2F%2Fcs.stackexchange.com%2Fquestions%2F10360%2Ffloyds-cycle-detection-algorithm-determining-the-starting-point-of-cycle&docid=j__5n0wawbP6yM&w=643&h=427&q=floyd%20cycle%20detection%20algorithm%20proof&ved=2ahUKEwidgJHnx-D-AhVsjtgFHTicCugQMygCegUIARCyAQ
+
+
+proof: Let's prove that x==z
+        
+         
+        rabbit total distance=x+2y+z;
+
+        tortoise total distance=x+y;
+
+The speeds of the rabbit and tortoise are different rabbit speed is two times faster than the tortoise so if we increase the speed of the tortoise by 2 Time it will be equal 
+
+
+      2(x+y)=(x+2y+z)
+      
+      2x+2y=x+2y+z
+      
+      2x+2y-x-2y=z
+      
+       x=z
+
+
+so finally the x=z so from that position we can calculate the start point of the cycle...
+
+
+
+code:-
+
+
+#include<bits/stdc++.h>
+using namespace std;
+const int mxn=1e5;
+
+
+struct LinkedList{
+	LinkedList* next=null;
+	int val=-1;
+}
+
+void calculate(LinkedList* head){
+	LinkedList *rabbit=head;
+	LinkedList *tortoise=head;
+	
+	while(rabbit!=NULL && tortoise!=rabbit){
+		rabbit=(rabbit->next)->next;          //2x speed
+		tortoise=tortoise->next;              //1x speed
+	}
+	if(tortoise==rabbit){
+		cout<<"No Cycle"<<endl;
+		return;
+	}
+	
+	rabbit=head;
+	
+	while(rabbit!=tortoise){              
+		rabbit=rabbit->next;
+		tortoise=tortoise->next;
+	}
+	cout<<rabbit->val<<" Is the Staring position fo the cycle"<<endl;
+	return 0;
+}
+void main(){
+	
+	// sample Linked List
+	
+	
+}

@@ -1,0 +1,34 @@
+Kaden Algorithm is used to calculate The maximum sum of a sub-array in O(n) linear Time complexity brute force of calculating the max sum of a sub-array will be O(n^3). with some optimization we can achieve o(n^2) but Kaden's algo will calculate in the O(n) time complexity 
+
+
+let's take an array for size 5
+   
+                               1 -3 4 5 -20 
+
+Kaden's algo will follow a simple trick do I take this number or not while iterating the array we maintain an ans var to store the max sum when we find the best subarray sum we will update this and continue the process until we reach the end...
+
+
+code :
+
+
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+	int n;
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++){
+		cin>>a[i];
+	}
+	int ans=-1e9;
+	int sum=0;
+	for(int i=0;i<n;i++){
+		sum=max(a[i],sum+a[i]);
+		ans=max(ans,sum);
+	}
+	cout<<ans<<endl;
+	return 0;
+}
+
+

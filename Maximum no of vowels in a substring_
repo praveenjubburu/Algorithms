@@ -1,0 +1,50 @@
+
+Problem Description: 
+
+Given a string s and an integer k, return the maximum number of vowel letters in any substring of s with length k.
+
+Vowel letters in English are 'a', 'e', 'i', 'o', and 'u'.
+
+
+
+To find the max no of vowels in a sub-string are multiple ways to do it if you do it with brute force it will take O(n^3) time complexity it's not a good approach but if we use the sliding window technique we can achieve this O(n) time complexity.
+
+
+In sliding  Window we maintain a window of size k according to the problem description then we calculate what we want on the window itself in our case no of vowels.
+
+
+So while iterating the string we maintain a window of size k and whenever we exceeded the size of the window we remove it from the front of the window 
+
+This is how the sliding-window technique works.
+
+
+we maintain two variables one is to count the vowels and one is to store the max vowel count in this way we can achieve the max count 
+
+
+
+
+
+code :
+  
+
+ int maxVowels(string s, int k) {
+        
+
+         int n=s.size();
+        int count=0,ans=-1e9;      
+        
+        for(int i=0;i<n;i++){
+            if((i>=k)&&(s[i-k]=='a'||s[i-k]=='e'||s[i-k]=='o'||s[i-k]=='i'||s[i-k]=='u')){  //if window size more than the k we remove it
+                count--;
+            }
+            if(s[i]=='a'||s[i]=='e'||s[i]=='o'||s[i]=='i'||s[i]=='u'){  //if the current char is vowel we increase the count
+                count++;
+            }
+            ans=max(ans,count);
+
+        }
+        return ans;
+    }
+
+
+
