@@ -1,64 +1,26 @@
 #include<bits/stdc++.h>
 using namespace std;
+const int mxn=1e5;
 
-
-struct LinkedList{
-	int val;
-	LinkedList* next=NULL;
-	LinkedList(int val){
-		this->val=val;
+int gcd(int a,int b){
+	if(b==0){
+		return a;
 	}
-};
-
-LinkedList* a[11];
-
-LinkedList* createNewNode(int val){
-	return new LinkedList(val);
+	return gcd(b,a%b);
 }
 
-void insert(int pos,int val){
-	if(a[pos]==NULL){
-		a[pos]=createNewNode(val);
-		return;
-	}
-	LinkedList*newNode=createNewNode(val);
-	newNode->next=a[pos];
-	a[pos]=newNode;
-}
-	
-bool find(int pos,int val){
-	LinkedList* head=a[pos];
-	while(head!=NULL){
-		if(head->val==val)return true;
-		head=head->next;
-	}
-	return false;
+int lcd(int a,int b){
+	return (a*b)/gcd(a,b);
 }
 
 int main(){
 	
-	int n;
-	cin>>n;
+	int a,b;
+	cin>>a>>b;
 	
-	for(int i=0;i<n;i++){
-		int x;
-		cin>>x;
-		int hash_code=x%11;
-		insert(hash_code,x);
-	}
+	cout<<"gcd of two numbers "<<gcd(a,b)<<endl;
+	cout<<"lcd of two numbers "<<lcd(a,b)<<endl;
 	
-	int q;
-	cin>>q;
-	for(int i=0;i<q;i++){
-		int x;
-		cin>>x;
-		int hash_code=x%11;
-		bool isPresent=find(hash_code,x);
-		if(isPresent){
-			printf("%s","found The Value");
-		}else{
-			printf("%s","Not Found The Value");
-		}
-	}
+	return 0;
 	
 }
